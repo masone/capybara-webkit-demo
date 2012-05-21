@@ -20,3 +20,20 @@ end
 Then /^I should see my name$/ do
   find('#me').should have_content('Test User')
 end
+
+When /^I post to my wall/ do
+  click_link 'Post'
+end
+
+When /^I send a request/ do
+  click_link 'Request'
+end
+
+Then /^I should not get an error$/ do
+  within_window(page.driver.window_handles.last) do
+    # ensure the popup has loaded
+    page.current_url
+
+    page.should_not have_content('An error occurred')
+  end
+end
